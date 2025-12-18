@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"unicode"
 )
 
 // the function that will check if the text contains only new lines
@@ -33,20 +34,15 @@ func ArtMaker(text string, style string) []byte {
 	if text == "" {
 		return nil
 	}
-	if Onlynewlines(text) != -1 {
-		for i := 0; i < Onlynewlines(text); i++ {
-			finalArt = append(finalArt, '\n')
-		}
-		return finalArt
-	}
 	art := ArtSelect(style)
 	for _, char := range text {
-		if char < 32 || char > 126 {
+		if !unicode.IsSpace(char) && !(char >= 32 && char <= 126) {
 			finalArt = []byte("Error: Unsupported character detected.\n")
 			return finalArt
 		}
 	}
-	txt := strings.Split(string(text), "\\n")
+	text = strings.ReplaceAll(text, "\r\n", "\n")
+	txt := strings.Split(string(text), "\n")
 	for i := 0; i < len(txt); i++ {
 		if txt[i] == "" {
 			finalArt = append(finalArt, '\n')
@@ -76,7 +72,7 @@ func ArtSelect(style string) [][]string {
 	file, err := os.ReadFile(style)
 	if err != nil {
 		fmt.Println("Error reading file:", err)
-		os.Exit(1)
+		
 	}
 	if style == "resources/thinkertoy.txt" {
 		file = []byte(strings.ReplaceAll(string(file), "\r\n", "\n"))
