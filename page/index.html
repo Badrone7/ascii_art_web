@@ -7,7 +7,7 @@
   <style>
     #result {
       width: auto;
-      min-width: 500px;       
+      min-width: 520px;       
       max-width: 100%;         
       box-sizing: border-box; 
       padding: 10px;
@@ -60,7 +60,7 @@
       <textarea id="input" name="text" rows="5" cols="40" placeholder="write your text here"></textarea>
     </div>
     <div>
-      <p>Type of Art</p>
+      <p style="color: white; font-family: 'Arial, sans-serif';">Type of Art</p>
       <input type="radio" id="standard" name="banner" value="standard" checked>
       <label for="standard">standard</label><br>
       <input type="radio" id="shadow" name="banner" value="shadow">
@@ -69,9 +69,9 @@
       <label for="thinkertoy">thinkertoy</label>
     </div>
     <div>
-      <button type="submit">Generate</button>
+      <button type="submit">Generate</button><br><br>
     </div>
-  </form><br>
+  </form>
   <div id="result">
     <h2>Generated ASCII Art:</h2>
     <pre>{{.Art}}</pre>

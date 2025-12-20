@@ -1,44 +1,25 @@
 package functions
 
 import (
-	"fmt"
 	"os"
 	"strings"
 	"unicode"
 )
 
-// the function that will check if the text contains only new lines
-func Onlynewlines(text string) int {
-	count := 0
-	runes := []rune(text)
-	for i := 0; i < len(runes); i++ {
-		if runes[i] != '\\' {
-			return -1
-		}
-		if i+1 >= len(runes) || runes[i+1] != 'n' {
-			return -1
-		}
-		count++
-		if i+2 >= len(runes) {
-			break
-		}
-		runes = runes[i+2:]
-		i = -1
-	}
-	return count
-}
-
 // the funtion that makes the art
-func ArtMaker(text string, style string) []byte {
+func ArtMaker(text string, style string) ([]byte, error) {
 	finalArt := []byte{}
 	if text == "" {
-		return nil
+		return nil, nil
 	}
-	art := ArtSelect(style)
+	art, err := ArtSelect(style)
+	if err != nil {
+		return nil, err
+	}
 	for _, char := range text {
 		if !unicode.IsSpace(char) && !(char >= 32 && char <= 126) {
 			finalArt = []byte("Error: Unsupported character detected.\n")
-			return finalArt
+			return finalArt, nil
 		}
 	}
 	text = strings.ReplaceAll(text, "\r\n", "\n")
@@ -50,7 +31,7 @@ func ArtMaker(text string, style string) []byte {
 			finalArt = append(finalArt, PrintArt(txt[i], art)...)
 		}
 	}
-	return finalArt
+	return finalArt, nil
 }
 
 // a function that prints the art
@@ -67,18 +48,17 @@ func PrintArt(text string, art [][]string) []byte {
 }
 
 // a function that selects the art type
-func ArtSelect(style string) [][]string {
+func ArtSelect(style string) ([][]string, error) {
 	style = "resources/" + style + ".txt"
 	file, err := os.ReadFile(style)
 	if err != nil {
-		fmt.Println("Error reading file:", err)
-		
+		return nil, err
 	}
 	if style == "resources/thinkertoy.txt" {
 		file = []byte(strings.ReplaceAll(string(file), "\r\n", "\n"))
 	}
 	art := ArtGenerator(file)
-	return art
+	return art, nil
 }
 
 // a function that generates the art from a txt file
