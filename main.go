@@ -5,13 +5,9 @@ import (
 )
 
 /*
-	In this Program we gonna turn a simple ascii text into an ASCII Art
-	The program will take 2 arguments:
-		- the file containing the main function
-		- The text to convert
-	Example of usage:
-		go run main.go "Hello World"
+	This Page is meant to launch the web server for the ASCII art generator, that generates an Art based on user input (handles only ASCII characters).
 */
+// This is the main package that starts the ASCII art web server.
 
 // the main function
 func main() {

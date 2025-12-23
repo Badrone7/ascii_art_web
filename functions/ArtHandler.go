@@ -39,11 +39,6 @@ func ArtHandler(art Artstr) http.HandlerFunc {
 			http.Error(w, "Error generating art", http.StatusInternalServerError)
 			return
 		}
-		if result == nil {
-			w.Header().Set("Content-Type", "text/html")
-			tmpl.Execute(w, art)
-			return
-		}
 		w.Header().Set("Content-Type", "text/html")
 		art.Art = string(result)
 		tmpl.Execute(w, art)
