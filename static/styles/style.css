@@ -1,0 +1,76 @@
+#result {
+    width: auto;
+    min-width: 520px;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    white-space: pre;
+    background: #f7f7f7;
+    font-family: monospace;
+    overflow-x: auto;
+}
+
+#messages {
+    font-family: monospace;
+    text-align: center;
+    color: orange;
+    margin-top: 30px;
+}
+
+#goBackButton{
+    padding: 10px 25px;
+    font-size: 16px;
+    color: black;
+    background-color: orange;
+    border: none;
+    cursor: pointer;
+}
+
+img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: white;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color:black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+}
+
+h1 {
+    color:orange;
+}
+
+textarea {
+    width: 500px;
+    height: 150px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    font-size: 16px;
+    color: black;
+    background-color: orange;
+    border: none;
+    cursor: pointer;
+}
+
+label {
+    color: orange;
+}

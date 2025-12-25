@@ -6,20 +6,20 @@ import (
 	"unicode"
 )
 
-// the funtion that makes the art
-func ArtMaker(text string, style string) ([]byte, error) {
+// ArtMaker generates ASCII art based on the provided text and style
+func ArtMaker(text string, style string) ([]byte, error, int) {
 	finalArt := []byte{}
 	if text == "" {
-		return nil, nil
+		return nil, nil, 0
 	}
 	art, err := ArtSelect(style)
 	if err != nil {
-		return nil, err
+		return nil, err, 0
 	}
 	for _, char := range text {
 		if !unicode.IsSpace(char) && !(char >= 32 && char <= 126) {
 			finalArt = []byte("Error: Unsupported character detected.\n")
-			return finalArt, nil
+			return finalArt, nil, 1
 		}
 	}
 	text = strings.ReplaceAll(text, "\r\n", "\n")
@@ -31,10 +31,10 @@ func ArtMaker(text string, style string) ([]byte, error) {
 			finalArt = append(finalArt, PrintArt(txt[i], art)...)
 		}
 	}
-	return finalArt, nil
+	return finalArt, nil, 0
 }
 
-// a function that prints the art
+// PrintArt constructs the ASCII art for a given line of text
 func PrintArt(text string, art [][]string) []byte {
 	finalArt := []byte{}
 	for line := 0; line < 8; line++ {
@@ -47,7 +47,7 @@ func PrintArt(text string, art [][]string) []byte {
 	return finalArt
 }
 
-// a function that selects the art type
+// ArtSelect selects and reads the appropriate ASCII art style file
 func ArtSelect(style string) ([][]string, error) {
 	style = "resources/" + style + ".txt"
 	file, err := os.ReadFile(style)
@@ -61,7 +61,7 @@ func ArtSelect(style string) ([][]string, error) {
 	return art, nil
 }
 
-// a function that generates the art from a txt file
+// ArtGenerator processes the ASCII art file into a structured format
 func ArtGenerator(file []byte) [][]string {
 	if file[0] == '\n' {
 		file = file[1:]

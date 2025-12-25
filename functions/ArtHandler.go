@@ -14,30 +14,42 @@ func IsValidInput(style string) bool {
 	return validStyles[style]
 }
 
+var (
+	tmpl404 = template.Must(template.ParseFiles("static/404.html"))
+	tmpl400 = template.Must(template.ParseFiles("static/400.html"))
+	tmpl500 = template.Must(template.ParseFiles("static/500.html"))
+	tmpl    = template.Must(template.ParseFiles("static/index.html"))
+)
+
 func ArtHandler(art Artstr) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
-			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+			w.WriteHeader(http.StatusBadRequest)
+			tmpl400.Execute(w, nil)
 			return
 		}
 		err := r.ParseForm()
 		if err != nil {
-			http.Error(w, "Error parsing form", http.StatusBadRequest)
+			w.WriteHeader(http.StatusBadRequest)
+			tmpl400.Execute(w, nil)
 			return
 		}
-		tmpl := template.Must(template.ParseFiles("page/index.html"))
 		art.text = r.FormValue("text")
 		art.style = r.FormValue("banner")
 		if !IsValidInput(art.style) {
 			art.Art = "Invalid style selected."
 			w.Header().Set("Content-Type", "text/html")
+			w.WriteHeader(http.StatusInternalServerError)
 			tmpl.Execute(w, art)
 			return
 		}
-		result, err := ArtMaker(art.text, art.style)
-		if err != nil {
-			http.Error(w, "Error generating art", http.StatusInternalServerError)
+		result, errart, i := ArtMaker(art.text, art.style)
+		if errart != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			tmpl500.Execute(w, nil)
 			return
+		} else if i == 1 {
+			w.WriteHeader(http.StatusInternalServerError)
 		}
 		w.Header().Set("Content-Type", "text/html")
 		art.Art = string(result)
