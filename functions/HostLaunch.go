@@ -20,7 +20,7 @@ func GetMethodChecker(w http.ResponseWriter, r *http.Request, Art Artstr) bool {
 		tmpl400.Execute(w, nil)
 		return false
 	}
-	if r.URL.Path != "/" && !strings.HasPrefix(r.URL.Path, "/dependencies") && !strings.HasPrefix(r.URL.Path, "/static") && !strings.HasPrefix(r.URL.Path, "/styles") {
+	if r.URL.Path != "/" && !strings.HasPrefix(r.URL.Path, "/static") && !strings.HasPrefix(r.URL.Path, "/styles") {
 		w.WriteHeader(http.StatusNotFound)
 		tmpl404.Execute(w, nil)
 		return false
