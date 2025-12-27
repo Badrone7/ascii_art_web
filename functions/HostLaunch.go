@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -14,13 +15,13 @@ type Artstr struct {
 	Art   string
 }
 
-func GetMethodChecker(w http.ResponseWriter, r *http.Request, Art Artstr) bool {
+func PageChecker(w http.ResponseWriter, r *http.Request, Art Artstr) bool {
 	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusBadRequest)
 		tmpl400.Execute(w, nil)
 		return false
 	}
-	if r.URL.Path != "/" && !strings.HasPrefix(r.URL.Path, "/static") && !strings.HasPrefix(r.URL.Path, "/styles") {
+	if r.URL.Path != "/" && r.URL.Path != "/ascii-art" {
 		w.WriteHeader(http.StatusNotFound)
 		tmpl404.Execute(w, nil)
 		return false
@@ -32,9 +33,17 @@ func GetMethodChecker(w http.ResponseWriter, r *http.Request, Art Artstr) bool {
 func HostLauncher() {
 	var Art Artstr
 	fs := http.FileServer(http.Dir("static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	http.Handle("/static/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_, err := os.Stat("static" + strings.TrimPrefix(r.URL.Path, "/static"))
+		if err != nil {
+			w.WriteHeader(http.StatusNotFound)
+			tmpl404.Execute(w, nil)
+			return
+		}
+		http.StripPrefix("/static/", fs).ServeHTTP(w, r)
+	}))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if GetMethodChecker(w, r, Art) {
+		if PageChecker(w, r, Art) {
 			Art.Art = ""
 			tmpl.Execute(w, Art)
 		}

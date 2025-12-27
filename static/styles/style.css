@@ -1,7 +1,6 @@
 #result {
-    width: auto;
-    min-width: 520px;
-    max-width: 100%;
+    width: 100%;        
+    max-width: 520px;    
     box-sizing: border-box;
     padding: 10px;
     border: 1px solid #ccc;
@@ -11,38 +10,36 @@
     font-family: monospace;
     overflow-x: auto;
 }
-
 #messages {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;    
+    min-height: 100vh;      
     font-family: monospace;
     text-align: center;
     color: orange;
-    margin-top: 30px;
+    padding: 20px;           
 }
 
-#goBackButton{
+#goBackButton {
     padding: 10px 25px;
     font-size: 16px;
     color: black;
     background-color: orange;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    width: 100%;        
+    max-width: 200px;     
 }
 
 #bigtitle {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 48px;
+    font-size: clamp(28px, 6vw, 48px); 
     color: orange;
     margin-bottom: 20px;
-}
-
-img {
-    width: 300px;
-    height: auto;
-    margin-bottom: 20px;
+    text-align: center;                 
 }
 
 body {
@@ -51,7 +48,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 50px;
+    padding: 20px;
 }
 
 h1 {
@@ -66,14 +63,17 @@ p {
 }
 
 textarea {
-    width: 500px;
+    width: 100%;        
+    max-width: 500px;   
     height: 150px;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: none;
+    box-sizing: border-box; 
 }
+
 
 button {
     margin-top: 20px;
@@ -82,8 +82,12 @@ button {
     color: black;
     background-color: orange;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    width: 100%;          
+    max-width: 200px;     
 }
+
 
 label {
     color: orange;
