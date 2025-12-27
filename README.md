@@ -32,9 +32,14 @@ The generated ASCII art is displayed directly in the browser.
 │   ├── ArtMaker.go
 │   └── HostLaunch.go
 │
-├── page/
+├── static/
 │   ├── favicon.ico
-│   └── index.html
+│   ├── 500.html
+│   ├── 400.html
+│   ├── 404.html
+│   ├── index.html
+│   └── styles/
+│       └── style.css
 │
 ├── resources/
 │   ├── standard.txt
