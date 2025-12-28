@@ -1,15 +1,72 @@
-#result {
-    width: 100%;        
-    max-width: 520px;    
-    box-sizing: border-box;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    white-space: pre;
-    background: #f7f7f7;
-    font-family: monospace;
-    overflow-x: auto;
+body {
+  background-color: #f4a261;
+  font-family: Arial, sans-serif;
 }
+
+#bigtitle {
+  font-family: 'monospace';
+  color: #264653;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+form {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto 30px auto;
+  background: #264653;
+  padding: 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+label {
+  font-family: 'monospace';
+  font-weight: bold;
+  color: #f4a261;
+  display: block;
+}
+
+textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 10px;
+  border: 3px solid #f4a261;
+  resize: none;
+  background-color: #e9c46a;
+  font-family: monospace;
+  color: #264653;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+input[type="radio"] {
+  margin-left: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #e76f51;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+#result {
+  width: 100%;
+  max-width: 700px;
+  min-height: 150px;
+  margin: 0 auto;
+  background: #264653;
+  padding: 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  overflow-x: auto; 
+  overflow-y: auto;
+}
+
 #messages {
     display: flex;
     flex-direction: column;
@@ -17,78 +74,65 @@
     align-items: center;    
     min-height: 100vh;      
     font-family: monospace;
-    text-align: center;
-    color: orange;
+    color: #264653;
     padding: 20px;           
 }
+#messages h1 {
+    font-size: 123px;
+    margin-bottom: -19px;
+}
 
+#errorMessage {
+    font-size: 22px;
+    margin-bottom: 25px;
+}
 #goBackButton {
-    padding: 10px 25px;
-    font-size: 16px;
-    color: black;
-    background-color: orange;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;        
-    max-width: 200px;     
+  width: 160px;
+  height: 45px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-#bigtitle {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: clamp(28px, 6vw, 48px); 
-    color: orange;
-    margin-bottom: 20px;
-    text-align: center;                 
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color:black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-h1 {
-    font-size: 150px;
-    color: whitesmoke;
-    margin: 0;
-}
-
-p {
-    font-size: 24px;
-    color:orange;
-}
-
-textarea {
-    width: 100%;        
-    max-width: 500px;   
-    height: 150px;
+@media (max-width: 768px) {
+  body {
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: none;
-    box-sizing: border-box; 
+  }
+  
+  form {
+    padding: 15px;
+  }
+  
+  textarea {
+    min-height: 120px;
+    font-size: 12px;
+  }
+  
+  button {
+    font-size: 14px;
+    padding: 12px;
+  }
+  
+  #result {
+    width: 95%;
+    padding: 10px;
+  }
 }
 
-
-button {
-    margin-top: 20px;
-    padding: 10px 25px;
-    font-size: 16px;
-    color: black;
-    background-color: orange;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;          
-    max-width: 200px;     
-}
-
-
-label {
-    color: orange;
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+  }
+  
+  form {
+    padding: 10px;
+  }
+  
+  textarea {
+    min-height: 100px;
+  }
+  
+  label {
+    font-size: 14px;
+  }
 }
